@@ -1,0 +1,225 @@
+.basic-setup .modal-bg {
+  z-index: 9999 !important;
+  background: rgba(0, 11, 16, 0.5) !important;
+}
+.basic-setup .modify-window .recivemoney {
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  margin-left: -5.375rem;
+}
+.basic-setup .search_box1 {
+  width: 100%;
+  height: 985px;
+  background: #ffffff;
+  border: 1px solid #f0f2f1;
+  box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  display: flex;
+  /*定义为弹性盒子*/
+  flex-direction: column;
+  /*设置排列方式*/
+  justify-content: flex-start;
+  /*设置水平对齐方式*/
+  align-items: center;
+  /*设置改行垂直对齐方式*/
+}
+.basic-setup .search_box1 .sure-message {
+  padding: 20px;
+}
+.basic-setup .search_box1 .sure-message p:nth-child(1) {
+  width: 94px;
+  height: 94px;
+}
+.basic-setup .search_box1 .sure-message p:nth-child(1) img {
+  width: 100%;
+  height: 94px;
+}
+.basic-setup .search_box1 .sure-message p:nth-child(2) {
+  font-size: 20px;
+  margin-left: -96px;
+  line-height: 76px;
+}
+.basic-setup .search_box {
+  width: 100%;
+  height: 985px;
+  background: #ffffff;
+  border: 1px solid #f0f2f1;
+  box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  display: flex;
+  /*定义为弹性盒子*/
+  flex-direction: column;
+  /*设置排列方式*/
+  justify-content: flex-start;
+  /*设置水平对齐方式*/
+  align-items: flex-start;
+  /*设置改行垂直对齐方式*/
+}
+.basic-setup .search_box .search-box-top {
+  width: 100%;
+  margin-right: 190px;
+}
+.basic-setup .search_box .search-box-top .top-title {
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 700;
+  font-style: normal;
+  font-size: 20px;
+  color: #333333;
+  line-height: normal;
+  text-transform: none;
+  margin-top: 27px;
+  margin-left: 19px;
+}
+.basic-setup .search_box .search-box-top .wait-list {
+  height: 10rem;
+  width: 80%;
+  background-color: #f2f2f2;
+  margin-left: 15px;
+  margin-top: 27px;
+  display: flex;
+}
+.basic-setup .search_box .search-box-top .wait-list div {
+  flex: 1;
+  align-self: center;
+  padding-left: 77px;
+  height: 80%;
+}
+.basic-setup .search_box .search-box-top .wait-list div p:nth-child(1) {
+  height: 24px;
+}
+.basic-setup .search_box .search-box-top .wait-list div p:nth-child(2) {
+  height: 5.875rem;
+  border-right: 0.0625rem solid #ccc;
+  line-height: 5.875rem;
+  font-size: 30px;
+}
+.basic-setup .search_box .search-box-top .wait-list div p:nth-child(2) span {
+  font-size: 16px;
+  padding-left: 16px;
+}
+.basic-setup .search_box .search-box-top .wait-list div .m-arrive {
+  border: none !important;
+}
+.basic-setup .search_box .search-box-buttom {
+  width: 100%;
+  margin-right: 190px;
+}
+.basic-setup .search_box .search-box-buttom .top-title {
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 700;
+  font-style: normal;
+  font-size: 20px;
+  color: #333333;
+  line-height: normal;
+  text-transform: none;
+  margin-top: 27px;
+  margin-left: 19px;
+}
+.basic-setup .search_box .search-box-buttom .wait-list {
+  height: 10rem;
+  width: 80%;
+  background-color: #f2f2f2;
+  margin-left: 15px;
+  margin-top: 27px;
+  display: flex;
+}
+.basic-setup .search_box .search-box-buttom .wait-list div {
+  flex: 1;
+  align-self: center;
+  padding-left: 77px;
+  height: 80%;
+}
+.basic-setup .search_box .search-box-buttom .wait-list div p:nth-child(1) {
+  height: 25px;
+  font-size: 20px;
+}
+.basic-setup .search_box .search-box-buttom .wait-list div p:nth-child(2) {
+  height: 5.875rem;
+  border-right: 0.0625rem solid #ccc;
+  line-height: 5.875rem;
+  font-size: 20px;
+}
+.basic-setup .search_box .search-box-buttom .wait-list div p:nth-child(2) span {
+  font-size: 20px;
+  padding-left: 20px;
+  color: #2c2c2c;
+}
+.basic-setup .search_box .search-box-buttom .wait-list div .canuse-first {
+  font-size: 30px !important;
+  font-weight: 500;
+}
+.basic-setup .search_box .search-box-buttom .wait-list div .m-arrive {
+  border: none !important;
+}
+.basic-setup .search_box .search-box-buttom .wait-list div .use-hand {
+  margin-top: 100px !important;
+}
+.basic-setup .search_box .search-box-buttom .wait-list div .use-hand .el-button {
+  background: rgb(73 161 650) !important;
+  border: 0.0625rem solid #9E9E9E !important;
+}
+.basic-setup .modify-window {
+  display: flex;
+  /*定义为弹性盒子*/
+  justify-content: space-around;
+  /*设置水平对齐方式*/
+  align-items: center;
+  /*设置改行垂直对齐方式*/
+  padding-bottom: 74px;
+}
+.basic-setup .modify-window .el-form-item__label {
+  min-width: 156px;
+  font-size: 24px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #666666;
+  line-height: 43px;
+}
+.basic-setup .modify-window .el-form-item {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+}
+.basic-setup .modify-window .el-input--small {
+  height: 50px;
+}
+.basic-setup .modify-window .el-form-item__content {
+  display: inline-block;
+}
+.basic-setup .modify-window .el-input__inner {
+  width: 401px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #edebeb;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #999999;
+  line-height: 15px;
+}
+.basic-setup .modify-window .primarybut {
+  width: 182px;
+  height: 51px;
+  background: #49a1c3;
+  border-radius: 5px;
+  font-size: 30px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 8px;
+  margin-top: 36px;
+}
+.basic-setup .modify-window .down {
+  width: 182px;
+  height: 51px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  font-size: 30px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 8px;
+  margin-left: 74px;
+}

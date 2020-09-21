@@ -1,0 +1,29 @@
+.company-main .mainHead .searchBox .btn-add {
+  display: inline-block;
+  margin-left: 15px;
+}
+.company-main .dataList {
+  margin-top: 15px;
+  box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15);
+}
+.company-main .dataList .auditstatus {
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 auto;
+  color: #fff;
+}
+.company-main .dataList .operation span {
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #222222;
+  cursor: pointer;
+}
+.company-main .dataList .operation .oper_edit {
+  margin-right: 20px;
+}
+.company-main .dataList .operation .oper_company {
+  margin-right: 20px;
+}
+

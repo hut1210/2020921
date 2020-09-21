@@ -1,0 +1,19 @@
+.userGroup-main .mainHead .searchBox .btn-add {
+  float: right;
+  margin-right: 35px;
+}
+.userGroup-main .dataList {
+  margin-top: 15px;
+  box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15);
+}
+.userGroup-main .dataList .el-table td,
+.userGroup-main .dataList .el-table th.is-leaf {
+  background: #49a1c3 !important;
+}
+.userGroup-main .dataList .auditstatus {
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 auto;
+  color: #fff;
+}

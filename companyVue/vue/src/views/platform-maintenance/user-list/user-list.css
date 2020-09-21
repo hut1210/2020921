@@ -1,0 +1,29 @@
+.userList-main .el-table td,
+.userList-main .el-table th.is-leaf {
+  background: #49a1c3 !important;
+}
+.userList-main .mainHead .searchBox .btn-add {
+  display: inline-block;
+  margin-left: 15px;
+}
+.userList-main .dataList {
+  margin-top: 15px;
+  box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15);
+}
+.userList-main .dataList .auditstatus {
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 auto;
+  color: #fff;
+}
+.userList-main .dataList .operation span {
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #222222;
+  cursor: pointer;
+}
+.userList-main .dataList .operation .oper_edit {
+  margin-right: 20px;
+}
