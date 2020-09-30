@@ -14,7 +14,7 @@
           <div class="search-input">
             <el-form-item label="提现申请单号:">
               <el-input
-                v-model="form.keyword"
+                v-model="form.applyId"
                 placeholder="请输入提现申请单号"
               ></el-input>
             </el-form-item>
@@ -22,7 +22,7 @@
               <el-select v-model="form.status" placeholder="请选择">
                 <el-option>请选择</el-option>
                 <el-option
-                  v-for="item in statusDatas"
+                  v-for="item in statusData"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
@@ -32,10 +32,11 @@
             </el-form-item>
             <el-form-item label="提现申请时间:" prop>
               <el-date-picker
+                style="height: 2.5rem;"
                 class="ydateinput"
-                v-model="startime"
-                type="daterange"
-                value-format="yyyy-MM-dd"
+                v-model="form.startime"
+                type="datetimerange"
+                format="yyyy-MM-dd HH:mm:ss"
                 range-separator="至"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
@@ -58,22 +59,22 @@
         height="49.7rem"
       >
         <el-table-column
-          prop="username"
+          prop="applyId"
           label="提现申请单号"
           width=""
         ></el-table-column>
         <el-table-column
-          prop="realname"
+          prop="amount"
           label="提现金额"
           width=""
         ></el-table-column>
         <el-table-column
-          prop="mobile"
+          prop="serviceFee"
           label="提现服务费"
           width=""
         ></el-table-column>
         <el-table-column
-          prop="groupname"
+          prop="toAccount"
           label="提现银行账户"
           width=""
         ></el-table-column>
@@ -81,29 +82,40 @@
           prop="company_name"
           label="提现状态"
           width=""
-        ></el-table-column>
+        >
+        <template slot-scope="scope">
+          <span
+          v-if="scope.row.status==1"
+            size="mini"
+          >待审核</span>
+          <span
+          v-else-if="scope.row.status==2"
+            size="mini"
+          >审核通过，通道提现中</span>
+          <span
+          v-else-if="scope.row.status==3"
+            size="mini"
+          >提现成功</span>
+          <span
+          v-else-if="scope.row.status==4"
+          size="mini"
+        >提现失败</span>
+          <span
+          v-else-if="scope.row.status==5"
+          size="mini"
+        >审核拒绝</span>
+        </template>
+      </el-table-column>
         <el-table-column
-          prop="addtime"
-          label="资金流水单号"
-          width=""
-        ></el-table-column>
-        <el-table-column
-        prop="addtime"
+        prop="createTime"
         label="申请提现时间"
         width=""
       ></el-table-column>
       <el-table-column
-      prop="addtime"
+      prop="updateTime"
       label="更新时间"
       width=""
     ></el-table-column>
-        <el-table-column label="操作" width="">
-          <template slot-scope="scope">
-                        <div class="operation">
-                            <span class="oper_edit" @click="editRow(scope.row)">取消提现</span>
-                        </div>
-                    </template> 
-        </el-table-column>
       </el-table>
     </div>
 
@@ -125,18 +137,32 @@ export default {
   data() {
     return {
       form: {
-        status: "",
-        keyword: ""
+        startime:[],
+        status: 1,
+        applyId: ""
       },
+      //状态，1-待审核 2-审核通过，通道提现中 3-提现成功 4-提现失败 5-审核拒绝
       statusData: [
         {
-          value: "1",
-          label: "已审核"
+          value: 1,
+          label: "待审核"
         },
         {
-          value: "0",
-          label: "未审核"
-        }
+          value: 2,
+          label: "审核通过"
+        },
+        {
+          value: 3,
+          label: "提现成功"
+        },
+        {
+          value: 4,
+          label: "提现失败"
+        },
+        {
+          value: 5,
+          label: "审核拒绝"
+        },
       ],
       tableData: [],
       pageIndex: 1,
@@ -145,9 +171,32 @@ export default {
     };
   },
   created() {
-    // this.getList();
+    this.getdate();
+    
   },
   methods: {
+     //时间 获取
+     getdate(){
+      var myDate = new Date();
+      this.form.startime.push(new Date( myDate.getFullYear(), myDate.getMonth(),  myDate.getDate(), 0, 0))
+      this.form.startime.push(new Date( myDate.getFullYear(), myDate.getMonth(),  myDate.getDate(), 23, 59))
+      console.log('startT',this.form.startime[0])
+      console.log('endT',this.form.startime[1])
+    },
+    formatDate:function (date) {  
+    var y = date.getFullYear();  
+    var m = date.getMonth() + 1;  
+    m = m < 10 ? ('0' + m) : m;  
+    var d = date.getDate();  
+    d = d < 10 ? ('0' + d) : d;  
+    var h = date.getHours();  
+    h = h < 10 ? ('0' + h) : h;
+    var minute = date.getMinutes();  
+    minute = minute < 10 ? ('0' + minute) : minute; 
+    var second= date.getSeconds();  
+    second = second < 10 ? ('0' + second) : second;  
+    return y + '-' + m + '-' + d+' '+h+':'+minute+':'+ second;  
+},
     //表头背景色
     getClass() {
       return "background: #66CE90FF";
@@ -214,28 +263,34 @@ export default {
       this.getList();
     },
 
-    //获取用户列表
+    //获取提现列表
     getList() {
       let self = this;
-      self.$api.get(
-        "user",
+      self.$api.post(
+        "/core/manager/review/withdraws/list",
+        
         {
           page: self.pageIndex,
-          pagesize: this.pageSize,
-          keyword: self.form.keyword,
-          status: self.form.status
+          size: self.pageSize,
+          startTime: self.formatDate(self.form.startime[0]),
+          endTime: self.formatDate(self.form.startime[1]),
+          status: self.form.status?self.form.status:1,//状态，1-待审核 2-审核通过，通道提现中 3-提现成功 4-提现失败 5-审核拒绝
+          applyId: self.form.applyId,//流水号，支持模糊查询
         },
         r => {
           //console.log(r.data);
-          self.tableData = r.data.data;
-          self.total = r.data.total_count;
+          self.tableData = r.result.list;
+          self.total = r.result.total;
         },
         e => {
-          self.$message.error(e.message);
+          self.$message.error(e.result);
         }
       );
     }
-  }
+  },
+  mounted() {
+    this.getList();
+  },
 };
 </script>
 

@@ -1,7 +1,3 @@
-.manageInfo-main .el-table td,
-.manageInfo-main .el-table th.is-leaf {
-  background: #49a1c3 !important;
-}
 .manageInfo-main .mainHead .searchBox .btn-add {
   display: inline-block;
   margin-left: 15px;
@@ -9,10 +5,6 @@
 .manageInfo-main .dataList {
   margin-top: 15px;
   box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15);
-}
-.manageInfo-main .dataList .el-table td,
-.manageInfo-main .dataList .el-table th.is-leaf {
-  background: #49a1c3 !important;
 }
 .manageInfo-main .dataList .auditstatus {
   width: 90px;

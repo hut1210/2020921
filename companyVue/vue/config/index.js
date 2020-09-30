@@ -13,9 +13,8 @@ module.exports = {
     proxyTable: {
       '/api': {
         // 代理接口的域名
-        //target: 'https://st.elongtian.com', // dev
-        target: 'http://test.gettin.in', // dev
-        
+        //target: 'http://test.gettin.in.', // dev
+        target: 'http://pg.grepayment.com', // dev
         secure: false,
         changeOrigin: true,
         pathRewrite: {
@@ -62,7 +61,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',//解决打包之后路径不对问题
 
     /**
      * Source Maps

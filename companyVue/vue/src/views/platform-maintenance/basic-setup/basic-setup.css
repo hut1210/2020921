@@ -8,6 +8,33 @@
   text-align: center;
   margin-left: -5.375rem;
 }
+.basic-setup .file {
+  position: relative;
+  display: inline-block;
+  background: #D0EEFF;
+  border: 1px solid #99D3F5;
+  border-radius: 4px;
+  padding: 0.5rem 0.5rem;
+  overflow: hidden;
+  color: #1E88C7;
+  text-decoration: none;
+  text-indent: 0;
+  line-height: 20px;
+  margin-left: -1.5rem;
+}
+.basic-setup .file input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+}
+.basic-setup .file:hover {
+  background: #AADFFD;
+  border-color: #78C3F3;
+  color: #004974;
+  text-decoration: none;
+}
 .basic-setup .search_box1 {
   width: 100%;
   height: 985px;
@@ -118,9 +145,9 @@
 }
 .basic-setup .search_box .search-box-buttom .wait-list {
   height: 10rem;
-  width: 80%;
+  width: 95%;
   background-color: #f2f2f2;
-  margin-left: 15px;
+  margin: 0 auto;
   margin-top: 27px;
   display: flex;
 }
@@ -180,6 +207,10 @@
   display: block;
   text-align: center;
   margin-top: 22px;
+}
+.basic-setup .modify-window .el-form-item--small .el-form-item__content,
+.basic-setup .modify-window .el-form-item--small .el-form-item__label {
+  line-height: 2.8rem !important;
 }
 .basic-setup .modify-window .el-input--small {
   height: 50px;

@@ -14,7 +14,7 @@
           <div class="search-input">
             <el-form-item label="付款单号:">
               <el-input
-                v-model="form.keyword"
+                v-model="form.id"
                 placeholder="请输入付款单号"
               ></el-input>
             </el-form-item>
@@ -22,7 +22,7 @@
               <el-select v-model="form.status" placeholder="请选择">
                 <el-option>请选择</el-option>
                 <el-option
-                  v-for="item in statusDatas"
+                  v-for="item in statusData"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
@@ -32,13 +32,13 @@
             </el-form-item>
             <el-form-item label="收款人姓名:" prop>
               <el-input
-              v-model="form.keyword"
+              v-model="form.name"
               placeholder="请输入收款人姓名"
             ></el-input>
             </el-form-item>
             <el-form-item>
               <el-button class="btn-query" @click="onSubmit">查询</el-button> 
-              <el-button class="btn-query" @click="onSubmit">导出</el-button> 
+              <!-- <el-button class="btn-query" @click="onSubmitexport">导出</el-button>  -->
             </el-form-item>
           </div>
         </el-form>
@@ -53,28 +53,36 @@
         style="width: 100%"
         height="49.7rem"
       >
-        <el-table-column prop="username" label="付款单号" width></el-table-column>
-        <el-table-column prop="mobile" label="收款人姓名" width></el-table-column>
-        <el-table-column prop="groupname" label="收款人银行卡号" width></el-table-column>
-        <el-table-column prop="addtime" label="付款金额" width></el-table-column>
-        <el-table-column prop="status" label="付款备注" width></el-table-column>
-        <el-table-column prop="addtime" label="付款状态" width></el-table-column>
-        <el-table-column prop="status" label="付款服务费" width></el-table-column>
-        <el-table-column prop="addtime" label="付款详情" width></el-table-column>
-        <el-table-column prop="status" label="资金流水单号" width></el-table-column>
-        <el-table-column prop="status" label="创建时间" width></el-table-column>
-        <el-table-column prop="status" label="更新时间" width></el-table-column>
-        <!-- //商户系统是否需要重新付款功能？还是只从业务系统发起 失败 -->
-        <el-table-column label="操作" width>
+        <el-table-column prop="id" label="付款单号" width></el-table-column>
+        <el-table-column prop="payeeName" label="收款人姓名" width></el-table-column>
+        <el-table-column prop="payeeBankCode" label="收款人银行卡号" width></el-table-column>
+        <el-table-column prop="amount" label="付款金额" width></el-table-column>
+        <el-table-column prop="" label="付款备注" width></el-table-column>
+        <el-table-column prop="status" label="付款状态" width>
           <template slot-scope="scope">
-            <div class="operation">
-              <span class="oper_edit" @click="editRow(scope.row)">重新付款 </span>
-            </div>
+            <span
+            v-if="scope.row.status==2"
+              size="mini"
+            >等待处理中</span>
+            <span
+            v-else-if="scope.row.status==1"
+              size="mini"
+            >处理成功</span>
+            <span
+            v-else
+            size="mini"
+          >等待处理中</span>
           </template>
         </el-table-column>
+        <el-table-column prop="singleCharge" label="付款服务费" width></el-table-column>
+        <el-table-column prop="addtime" label="付款详情" width></el-table-column>
+        <el-table-column prop="payoutId" label="资金流水单号" width></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" width></el-table-column>
+        <el-table-column prop="updateTime" label="更新时间" width></el-table-column>
+        <!-- //商户系统是否需要重新付款功能？还是只从业务系统发起 失败 -->
       </el-table>
     </div>
-
+    
     <!-- 分页 -->
     <el-pagination
       @current-change="handleCurrentChange"
@@ -85,34 +93,45 @@
     </el-pagination>
   </div>
 </template>
-
+    
 <script>
 export default {
   name: "home",
   data() {
     return {
       form: {
-        status: "",
-        keyword: ""
+       id:"",
+        status:"0",
+        name: ""
       },
       statusData: [
         {
-          value: '1',
-          label: '已审核'
+          value: '0',
+          label: '等待处理中'
         },
         {
-          value: '0',
-          label: '未审核'
+          value: '1',
+          label: '处理成功'
+        },
+        {
+          value: '2',
+          label: '失败'
         },
       ],
       tableData: [],
       pageIndex: 1,
       total: 0,
       pageSize:10,
+      orderId:"",
+     
     };
   },
   created() {
-    this.manage();
+    if (this.$route.params.id) {
+      this.orderId=this.$route.params.id
+      this.manage();
+    }
+   
   },
   methods: {
     //表头背景色
@@ -123,28 +142,51 @@ export default {
     onSubmit() {
       this.manage();
     },
+    //导出
+    onSubmitexport() {
+      this.manageexport();
+    },
     //分页
     handleCurrentChange(val) {
       this.pageIndex = val;
       this.manage();
     },
-    //获取管理员列表
+    //获取代付详情列表
     manage() {
       let self = this;
-      self.$api.get(
-        "manage",
+      self.$api.post(
+        "/core/api/payment/payout/detaillist",
         { page: self.pageIndex,
-          pagesize: self.pageSize,
-          keyword: self.form.keyword,
+          size: self.pageSize,
+          orderId: self.orderId,
           status: self.form.status,
+          name: self.form.name,
+          id: self.form.id,
         },
         r => {
           console.log(r);
-          self.tableData = r.data.data;
-          self.total = r.data.total_count;
+          self.tableData = r.result.list;
+          self.total = r.result.total;
         },
         e => {
-          self.$message.error(e.message);
+          self.$message.error(e.result);
+        }
+      );
+    },
+    manageexport(){
+      let self = this;
+      self.$api.exportTable(
+        "/core/api/payment/payout/detaillist/export",
+        { page: self.pageIndex,
+          orderId: self.orderId,
+          status: self.form.status,
+          name: self.form.name
+        },
+        r => {
+          console.log(r);
+        },
+        e => {
+          self.$message.error(e.result);
         }
       );
     },
@@ -198,7 +240,10 @@ export default {
           });
         });
     }
-  }
+  },
+  mounted() {
+    
+  },
 };
 </script>
 

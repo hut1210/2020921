@@ -6,8 +6,10 @@ import router from '../router'
 
 // axios.defaults.timeout = 5000
 // 配置API接口公共地址
-  var root = process.env.NODE_ENV == 'development' ? '/api' : '/'
- //var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://test.gettin.in'
+var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://pg.grepayment.com'
+//var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://test.gettin.in'
+//var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://pg.helonovel.in'
+
 // 自定义判断元素类型JS
 function toType (obj) {
   return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
@@ -32,7 +34,7 @@ function filterNull (o) {
   接口处理函数
 */
 function apiAxios (method, url, params, success, failure) {
-  if (params) {
+  if (params && url!="/core/api/payment/paymentout") {
     params = filterNull(params)
   }
   if (utils.getloc('token')) {
@@ -42,20 +44,24 @@ function apiAxios (method, url, params, success, failure) {
   }
 
   let loadingInstance = Loading.service({ target: '.el-main' })
+
+ let obj={Authorization: "Bearer " + utils.getloc('token')
+ }
+ if(url=="/gpauth/partner/merchant/users/login" || url=="/gpauth/partner/merchant/users/add"){
+    obj={};
+ }
  
- let obj={Authorization: "Bearer " + utils.getloc('token')}
   axios({
     method: method,
     url: url,
-    headers: method === 'GET' ? obj : null,
+    headers: obj ,
     data: method === 'POST' || method === 'PUT' ? params : null,
     params: method === 'GET' || method === 'DELETE' ? params : null,
     baseURL: root,
     withCredentials: false
   }).then(function (res) {
-    debugger
     loadingInstance.close()
-    if (res.data.code === 1000) {
+    if (res.data.code) {
       if (success) {
         success(res.data)
       }
@@ -68,15 +74,20 @@ function apiAxios (method, url, params, success, failure) {
             redirect: router.currentRoute.fullPath
           }
         })
-        Message.error(res.data.info)
+        Message.error(res.result)
     }
   }).catch(
     function (err) {
-      // console.log(3333,err)
+      console.log("3333",err.response)
       loadingInstance.close()
-      if (err) {
-        Message.error('网络错误，请稍后重试')
+      if (err.response) {
+        
         let res = err.response
+        Message.error(err.response.data.result)
+
+      }else{
+        Message.error('网络错误，请稍后重试')
+
       }
     }
   )
@@ -123,6 +134,7 @@ function apiAxios1 (method, url, params, success, failure) {
       }
     }
   }).catch(
+   
     function (err) {
       // console.log(3333,err)
       if (err) {
@@ -143,7 +155,7 @@ function exportTable (url, params, downLoadFn, errFn) {
     baseURL: root,
     url: url,
     headers: {
-      'token': utils.getloc('token')
+      Authorization: "Bearer " + utils.getloc('token')
     },
     data: params,
     responseType: 'blob',
@@ -161,7 +173,6 @@ function exportTable (url, params, downLoadFn, errFn) {
       if (err) {
         Message.error('网络错误，请稍后重试')
         let res = err.response
-        console.log(res.status)
       }
     }
   )
@@ -192,5 +203,7 @@ export default {
   deleteTall: function (url, params, success, failure) {
     return apiAxios1('DELETE', url, params, success, failure)
   },
-  exportTable
+  exportTable:function (url, params, success, failure) {
+    return apiAxios('POST', url, params, success, failure)
+  },
 }

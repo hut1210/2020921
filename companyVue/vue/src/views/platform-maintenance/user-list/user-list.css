@@ -1,7 +1,3 @@
-.userList-main .el-table td,
-.userList-main .el-table th.is-leaf {
-  background: #49a1c3 !important;
-}
 .userList-main .mainHead .searchBox .btn-add {
   display: inline-block;
   margin-left: 15px;

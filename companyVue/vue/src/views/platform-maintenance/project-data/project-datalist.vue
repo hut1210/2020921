@@ -313,5 +313,5 @@ export default {
 
 <style lang="less" scoped src="./projectnum-list.less"></style>
 <style lang="less">
-        .el-table td, .el-table th.is-leaf{background: #49a1c3 !important;}
+        /* .el-table td, .el-table th.is-leaf{background: #49a1c3 !important;} */
 </style>

@@ -11,31 +11,31 @@
     <div class="skillby-tab">
       <!-- 认证中查看信息 -->
       <div class="renzheng-look">
-      <div  class="search_box">
+      <div  class="search_box" style="justify-content: flex-start;">
         <p class="attestation-title">商户配置参数:</p>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
-          <div class="search-input">
-            <el-form-item label="商户号：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="商户号" readonly clearable></el-input>
+          <div class="search-input" style="position:relative;">
+            <el-form-item label="商户号：" prop="">
+              <el-input v-model="ruleForm.merchanDetail.merchantId"  readonly clearable></el-input>
             </el-form-item>
-            <el-form-item label="应用名称：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="APP_ID：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="APP_ID" clearable readonly></el-input>
+            <!-- <el-form-item label="应用名称：" prop="realname">
+              <el-input v-model="ruleForm.merchanDetail.bizContactNumber"  clearable readonly></el-input>
+            </el-form-item> -->
+            <el-form-item label="APP_ID：" prop="app_id">
+              <el-input v-model="ruleForm.merchantApp.app_id" placeholder="APP_ID" clearable readonly></el-input>
             </el-form-item>
             <el-form-item label="APP_Secret：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="APP_Secret" clearable readonly></el-input>
+              <el-input v-model="ruleForm.merchantApp.app_key" placeholder="APP_Secret" clearable readonly></el-input>
             </el-form-item>
-            <el-form-item label="使用说明：" prop="remarks">
+            <el-form-item label="回调地址：" prop="callback_urls">
               <el-input
                 type="textarea"
                 class="textarea"
-                v-model="ruleForm.remarks"
-                placeholder="使用说明"
+                v-model="ruleForm.merchantApp.callback_urls"
+               
               ></el-input>
             </el-form-item>
-        <el-button type="primary" @click="resetclick">返回</el-button>
+        <el-button type="primary"  size="mini" style="position: absolute; top: 69%;left: 22%;" @click="resetclick">返回</el-button>
           </div>
         </el-form>
         
@@ -71,6 +71,9 @@ export default {
       companyData:[],
       departmentData:[],
       optionsSelect: [],
+      merchanDetail:{},
+      merchantAccount:{},
+      merchantApp:{},
       ruleForm: {
         username: "", //用户名称：
         realname: "", //真实姓名
@@ -107,63 +110,26 @@ export default {
     };
   },
   created() {
+    //此处信息可以放到x的state里面哟吼放
+    this.lookManage();
   },
   methods: {
-    //联动用户组
-    handleGroup(v){
-      if(v == 2){
-        this.groupState = true;
-      }else{
-        this.groupState = false;
-      }
-    },
-    //联动部门
-    handleCompany(val){
-      this.departmentList(val)
-      this.ruleForm.department_id = ''
-    },
-    //获取用户组列表
-    groupList(){
-      let self = this;
-      self.$api.get(
-        'group/',
-        {},
-        r => {
-          this.groupData = r.data.filter(v => v.name != '超级管理员')
-          // this.groupData = r.data
-        },
-        e => {
-          self.$message.error(e.msg);
-        }
-      );
-    },
-
-    //获取用户标签
-    tagList(){
-      let self = this;
-      self.$api.get(
-        'tags/',
-        {},
-        r => {
-          this.tagsData = r.data
-          // this.groupData = r.data
-        },
-        e => {
-          self.$message.error(e.msg);
-        }
-      );
-    },
+   
     //获取公司列表
-    companyList(){
+    lookManage(){
       let self = this;
-      self.$api.post(
-        'companytype/',
+      self.$api.get(
+        'gpmanage/partner/merchant/info',
         {},
         r => {
-          this.companyData = r.data
+          
+          self.ruleForm=r.result
+          console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+          console.log(self.ruleForm)
         },
         e => {
-          self.$message.error(e.msg);
+          console.log(e)
+          self.$message.error(e.info);
         }
       );
     },
@@ -187,104 +153,6 @@ export default {
     // 返回
     goBack() {
       this.$router.go(-1);
-    },
-    submitForm(formName) {
-      // let self = this
-      // var myreg = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
-      // if (!myreg.test(self.ruleForm.mobile)) {
-      //    self.$message.error('请输入正确的联系方式')
-      //     return false
-      // }
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-            this.addManage();
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    //新增用户信息
-    addManage() {
-      // 成功
-      let self = this;
-      self.$router.push({
-        name: "basic-setup",
-        params:{
-          type:'1'
-        }
-
-      });
-      // 失败
-      // self.$router.push({
-      //   name: "basic-setup",
-      //   params:{
-      //     type:'3'
-      //   }
-
-      // });
-      // let self = this;
-      // self.$api.post(
-      //   "user",
-      //   self.ruleForm,
-      //   r => {
-      //     this.$message({
-      //       message: r.message,
-      //       type: "success"
-      //     });
-      //     setTimeout(() => {
-      //       this.$router.push({
-      //         name: "user-list"
-      //       });
-      //     }, 500);
-      //   },
-      //   e => {
-      //     self.$message.error(e.data);
-      //   }
-      // );
-
-    },
-    //修改用户信息保存
-    updataManage(){
-      let self = this;
-      self.$api.put(
-        'user/'+self.$route.params.id,
-        self.ruleForm,
-        r => {
-          this.$message({
-            message: r.message,
-            type: "success"
-          });
-          setTimeout(() => {
-            this.$router.push({
-              name: "user-list"
-            });
-          }, 500);
-        },
-        e => {
-          self.$message.error(e.msg);
-        }
-      );
-    },
-    // 修改用户信息展示
-    modify() {
-      let self = this;
-      // 调用后端登陆接口
-      self.$api.get(
-        "user/" + self.$route.params.id,
-        { id: self.$route.params.id },
-        r => {
-          if(r.data.group == 2){
-            this.groupState = true;
-          }
-          this.ruleForm = r.data;
-          this.ruleForm.password = ''
-          this.departmentList(r.data.company_id)
-        },
-        e => {
-          self.$message.error(e.msg);
-        }
-      );
     },
     //取消
     resetclick(){

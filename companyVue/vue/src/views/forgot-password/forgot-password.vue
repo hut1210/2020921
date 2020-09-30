@@ -2,7 +2,7 @@
   <div class="login_box">
     <div class="header">
       <!-- <img src="@/images/companylogo.jpg" alt /> -->
-      <p class="title">业务管理系统</p>
+      <p class="title">商户系统</p>
     </div>
     <div class="login_content">
       <div class="main_box">

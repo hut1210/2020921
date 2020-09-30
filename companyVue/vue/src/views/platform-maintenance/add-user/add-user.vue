@@ -1,5 +1,3 @@
-
-
 <template>
   <!-- 认证信息 -->
   <div class="add-manage-info sharing">
@@ -10,208 +8,434 @@
 
     <div class="skillby-tab">
       <!-- 认证中查看信息 -->
-      <div class="renzheng-look" v-if='renzhengtype=="2" || $utils.getloc("group_id") == 1'>
-      <div  class="search_box">
-        <p class="attestation-title">填写商户认证信息:</p>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
-          <div class="search-input">
-            <el-form-item label="公司名称：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" readonly clearable></el-input>
-            </el-form-item>
-            <el-form-item label="银行卡号：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入银行卡号" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="营业执照号码：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="法人姓名：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="法人证件号码：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="商务联系人姓名：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="商务联系人证件号码：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="商务联系人手机号码：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="商务联系人电子邮箱：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="银行账户：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="注册地址：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="经营地址：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable readonly></el-input>
-            </el-form-item>
-            <el-form-item label="所属行业：" prop="group">
-              <el-select v-model="ruleForm.group" placeholder="请选择" @change="handleGroup">
-                <el-option
-                  v-for="item in groupData"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="官网链接：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入官网链接" clearable readonly></el-input>
-            </el-form-item>
-            <p style="margin-left:-17.625rem" class="attestation-title">上传认证文件:</p>
-            <div class="uploud-file">
-            <el-form-item label="商户开户资料信息表：" prop="username">
-              <a href="" download="test.pdf">下载</a>
-              <a href="#" >预览</a>
-            </el-form-item>
-            <el-form-item label="公司营业执照：" prop="realname">
-              <a href="" download="test.pdf">下载</a>
-              <a href="#" >预览</a>
-            </el-form-item>
-            <el-form-item label="公司注册证书：" prop="username">
-              <a href="" download="test.pdf">下载</a>
-              <a href="#" >预览</a>
-            </el-form-item>
-            <el-form-item label="法人身份证：" prop="realname">
-              <a href="" download="test.pdf">下载</a>
-              <a href="#" >预览</a>
-            </el-form-item>
-            <el-form-item label="公司章程：" prop="username">
-              <a href="" download="test.pdf">下载</a>
-              <a href="#" >预览</a>
-            </el-form-item>
-            <el-form-item label="银行账户开户证明：" prop="realname">
-              <a href="" download="test.pdf">下载</a>
-              <a href="#" >预览</a>
-            </el-form-item>
-
-          </div>
-          <!-- 开通业务 -->
-          <!-- <div>
+      <div
+        class="renzheng-look"
+        v-if="renzhengtype == '2' || $utils.getloc('group_id') == 1 || $utils.getloc('group_id') == 2"
+      >
+        <div class="search_box">
+          <p class="attestation-title">填写商户认证信息:</p>
+          <el-form
+            :model="ruleForm1"
+            :rules="rules"
+            ref="ruleForm1"
+            class="demo-ruleForm"
+          >
+            <div class="search-input">
+              <el-form-item label="公司名称：" prop="companyName">
+                <el-input
+                  v-model="ruleForm1.companyName"
+                  placeholder="输入公司名称"
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="银行卡号：" prop="bankCardId">
+                <el-input
+                  v-model="ruleForm1.bankCardId"
+                  placeholder="输入银行卡号"
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="营业执照号码：" prop="bizCertifNo">
+                <el-input
+                  v-model="ruleForm1.bizCertifNo"
+                  placeholder="输入营业执照号码"
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="法人姓名：" prop="representativeName">
+                <el-input
+                  v-model="ruleForm1.representativeName"
+                  placeholder="输入法人姓名"
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <!-- <el-form-item label="法人证件号码：" prop="bankCardID">
+                <el-input
+                  v-model="ruleForm.bankCardID"
+                  placeholder="输入真实姓名"
+                  clearable
+                ></el-input>
+              </el-form-item> -->
+              <el-form-item label="商务联系人姓名：" prop="bizContactName">
+                <el-input
+                  v-model="ruleForm1.bizContactName"
+                  placeholder="输入商务联系人姓名"
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="商务联系人证件号码：" prop="representativeIds">
+                <el-input
+                  v-model="ruleForm1.representativeIds"
+                  placeholder="输入商务联系人证件号码"
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="商务联系人方式：" prop="bizContactName">
+                <el-input
+                  v-model="ruleForm1.bizContactNumber"
+                  placeholder="输入商务联系人方式"
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="营业执照号：" prop="bizCertifNo">
+                <el-input
+                  v-model="ruleForm1.bizCertifNo"
+                  placeholder="输入营业执照号"
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <!-- <el-form-item label="商务联系人电子邮箱：" prop="realname">
+                <el-input
+                  v-model="ruleForm.bankCardID"
+                  placeholder="输入真实姓名"
+                  clearable
+                ></el-input>
+              </el-form-item> -->
+              <!-- <el-form-item label="银行账户：" prop="bankCardID">
+                <el-input
+                  v-model="ruleForm.bankCardID"
+                  placeholder="输入银行账户"
+                  clearable
+                ></el-input>
+              </el-form-item> -->
+              <el-form-item label="注册地址：" prop="registeredAddr">
+                <el-input
+                  v-model="ruleForm1.registeredAddr"
+                  placeholder="输入注册地址："
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="经营地址：" prop="bizAddr">
+                <el-input
+                  v-model="ruleForm1.bizAddr"
+                  placeholder="输入经营地址："
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="所属行业：" prop="industry">
+                <el-input
+                  v-model="ruleForm1.industry"
+                  placeholder="输入所属行业："
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="官网链接：" prop="website">
+                <el-input
+                  v-model="ruleForm1.website"
+                  placeholder="输入官网链接"
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <p style="margin-left:-17.625rem" class="attestation-title">
+                上传认证文件:
+              </p>
+              <div class="uploud-file">
+                <el-form-item label="商户开户资料信息表：" prop="username">
+                    <a   download="商户开户资料信息表.pdf" @click="dowload(merchantInfoFile)"  href="#" >下载</a>
+                  <!-- <a href="#">预览</a>
+                  <embed src="merchantInfoFile" v-if="swf"/> -->
+                </el-form-item>
+                <el-form-item label="公司营业执照：" prop="realname">
+                  <a download="公司营业执照.pdf" @click="dowload(bizRegistCertificateFile)"  href="#"  >下载</a>
+                  <!-- <a href="#">预览</a> -->
+                </el-form-item>
+                <el-form-item label="公司注册证书：" prop="username">
+                  <a   download="公司注册证书.pdf"  @click="dowload(certificateIncorporationFile)" href="#" >下载</a>
+                  <!-- <a href="#">预览</a> -->
+                </el-form-item>
+                <el-form-item label="法人身份证：" prop="realname">
+                  <a download="法人身份证.pdf" @click="dowload(idFile)" href="#"  >下载</a>
+                  <!-- <a href="#">预览</a> -->
+                </el-form-item>
+                <el-form-item label="公司章程：" prop="username">
+                  <a download="公司章程.pdf" @click="dowload(articlesFile)" href="#" >下载</a>
+                  <!-- <a href="#">预览</a> -->
+                </el-form-item>
+                <el-form-item label="银行账户开户证明：" prop="realname">
+                  <a href="#"  download="银行账户开户证明.pdf"  @click="dowload(bankAccountFile)"  >下载</a>
+                  <!-- <a href="#">预览</a> -->
+                </el-form-item>
+              </div>
+              <!-- 开通业务 -->
+              <!-- <div>
           <p style="margin-left:-17.625rem" class="attestation-title">开通业务:</p>
 
         </div> -->
-        <el-button type="primary" @click="resetclick">返回</el-button>
-          </div>
-        </el-form>
-        
+              <el-button type="primary" @click="resetclick">返回</el-button>
+            </div>
+          </el-form>
+        </div>
       </div>
-    </div>
       <!-- 查询 -->
       <div v-else class="search_box">
         <p class="attestation-title">填写商户认证信息:</p>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+        <el-form
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          class="demo-ruleForm"
+        >
           <div class="search-input">
-            <el-form-item label="公司名称：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable></el-input>
+            <el-form-item label="公司名称：" prop="companyName">
+              <el-input
+                v-model="ruleForm.companyName"
+                placeholder="输入公司名称"
+              ></el-input>
             </el-form-item>
-            <el-form-item label="银行卡号：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable></el-input>
+            <el-form-item label="银行卡号：" prop="bankCardID">
+              <el-input
+                v-model="ruleForm.bankCardID"
+                placeholder="输入银行卡号"
+                clearable
+              ></el-input>
             </el-form-item>
-            <el-form-item label="营业执照号码：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable></el-input>
+            <el-form-item label="营业执照号码：" prop="bizCertifNo">
+              <el-input
+                v-model="ruleForm.bizCertifNo"
+                placeholder="输入营业执照号码"
+                clearable
+              ></el-input>
             </el-form-item>
-            <el-form-item label="法人姓名：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable></el-input>
+            <el-form-item label="法人姓名：" prop="representativeName">
+              <el-input
+                v-model="ruleForm.representativeName"
+                placeholder="输入法人姓名"
+                clearable
+              ></el-input>
             </el-form-item>
-            <el-form-item label="法人证件号码：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable></el-input>
+            <!-- <el-form-item label="法人证件号码：" prop="bankCardID">
+              <el-input
+                v-model="ruleForm.bankCardID"
+                placeholder="输入真实姓名"
+                clearable
+              ></el-input>
+            </el-form-item> -->
+            <el-form-item label="商务联系人姓名：" prop="bizContactName">
+              <el-input
+                v-model="ruleForm.bizContactName"
+                placeholder="输入商务联系人姓名"
+                clearable
+              ></el-input>
             </el-form-item>
-            <el-form-item label="商务联系人姓名：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable></el-input>
+            <el-form-item label="商务联系人证件号码：" prop="representativeIds">
+              <el-input
+                v-model="ruleForm.representativeIds"
+                placeholder="输入商务联系人证件号码"
+                clearable
+              ></el-input>
             </el-form-item>
-            <el-form-item label="商务联系人证件号码：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable></el-input>
+            <el-form-item label="商务联系人方式：" prop="bizContactName">
+              <el-input
+                v-model="ruleForm.bizContactNumber"
+                placeholder="输入商务联系人方式"
+                clearable
+              ></el-input>
             </el-form-item>
-            <el-form-item label="商务联系人手机号码：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable></el-input>
+           
+            <!-- <el-form-item label="商务联系人电子邮箱：" prop="realname">
+              <el-input
+                v-model="ruleForm.bankCardID"
+                placeholder="输入真实姓名"
+                clearable
+              ></el-input>
+            </el-form-item> -->
+            <!-- <el-form-item label="银行账户：" prop="bankCardID">
+              <el-input
+                v-model="ruleForm.bankCardID"
+                placeholder="输入银行账户"
+                clearable
+              ></el-input>
+            </el-form-item> -->
+            <el-form-item label="注册地址：" prop="registeredAddr">
+              <el-input
+                v-model="ruleForm.registeredAddr"
+                placeholder="输入注册地址："
+                clearable
+              ></el-input>
             </el-form-item>
-            <el-form-item label="商务联系人电子邮箱：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable></el-input>
+            <el-form-item label="经营地址：" prop="bizAddr">
+              <el-input
+                v-model="ruleForm.bizAddr"
+                placeholder="输入经营地址："
+                clearable
+              ></el-input>
             </el-form-item>
-            <el-form-item label="银行账户：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable></el-input>
+            <el-form-item label="所属行业：" prop="industry">
+              <el-input
+                v-model="ruleForm.industry"
+                placeholder="输入所属行业："
+                clearable
+              ></el-input>
             </el-form-item>
-            <el-form-item label="注册地址：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入真实姓名" clearable></el-input>
+            <el-form-item label="官网链接：" prop="website">
+              <el-input
+                v-model="ruleForm.website"
+                placeholder="输入官网链接"
+                clearable
+              ></el-input>
             </el-form-item>
-            <el-form-item label="经营地址：" prop="username">
-              <el-input v-model="ruleForm.username" placeholder="输入用户名称" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="所属行业：" prop="group">
-              <el-select v-model="ruleForm.group" placeholder="请选择" @change="handleGroup">
-                <el-option
-                  v-for="item in groupData"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="官网链接：" prop="realname">
-              <el-input v-model="ruleForm.realname" placeholder="输入官网链接" clearable></el-input>
-            </el-form-item>
-            <p style="margin-left:-17.625rem" class="attestation-title">上传认证文件:</p>
+            <p style="margin-left:-17.625rem" class="attestation-title">
+              上传认证文件:
+            </p>
             <div class="uploud-file">
-            <el-form-item label="商户开户资料信息表：" prop="username">
-              <el-input
-               v-model="ruleForm.file"
-               type="file"
-               placeholder="上传"
-             ></el-input>
-            </el-form-item>
-            <el-form-item label="公司营业执照：" prop="realname">
-              <el-input
-               v-model="ruleForm.file"
-               type="file"
-               placeholder="上传"
-             ></el-input>
-            </el-form-item>
-            <el-form-item label="公司注册证书：" prop="username">
-              <el-input
-               v-model="ruleForm.file"
-               type="file"
-               placeholder="上传"
-             ></el-input>
-            </el-form-item>
-            <el-form-item label="法人身份证：" prop="realname">
-              <el-input
-               v-model="ruleForm.file"
-               type="file"
-               placeholder="上传"
-             ></el-input>
-            </el-form-item>
-            <el-form-item label="公司章程：" prop="username">
-              <el-input
-               v-model="ruleForm.file"
-               type="file"
-               placeholder="上传"
-             ></el-input>
-            </el-form-item>
-            <el-form-item label="银行账户开户证明：" prop="realname">
-              <el-input
-               v-model="ruleForm.file"
-               type="file"
-               placeholder="上传"
-             ></el-input>
-            </el-form-item>
-            <el-form-item>
-              上传内容说明：需要上传扫描件或清晰的照看，支持.pdf、.png格式文件
-            </el-form-item>
-          </div>
-           <el-button type="primary" @click="resetclick">取消</el-button>
-            <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+              <el-form-item label="商户开户资料信息表：" prop="username">
+                <el-upload
+                  class="upload-demo"
+                  :action="actions"
+                  :on-success="onsuccess1"
+                  :limit="1"
+                >
+                  <el-button
+              style="margin-left: -23.375rem;
+              width: 7.375rem;
+              font-size: 1rem;
+              font-weight: 400;
+              margin-top: 0.3rem!important;
+              margin-bottom: 0rem!important;
+              height: 100%;"
+                    size="small"
+                    type="primary"
+
+                    >上传</el-button
+                  >
+                </el-upload>
+              </el-form-item>
+              <el-form-item label="公司营业执照：" prop="realname">
+                <el-upload
+                  class="upload-demo"
+                  :action="actions"
+                  :on-success="onsuccess2"
+                  multiple
+                  :limit="1"
+                  :file-list="fileList"
+                >
+                  <el-button
+                  style="margin-left: -23.375rem;
+              width: 7.375rem;
+              font-size: 1rem;
+              font-weight: 400;
+              margin-top: 0.3rem!important;
+              margin-bottom: 0rem!important;
+              height: 100%;"
+                    size="small"
+                    type="primary"
+                    >上传</el-button
+                  >
+                </el-upload>
+              </el-form-item>
+              <el-form-item label="公司注册证书：" prop="username">
+                <el-upload
+                  class="upload-demo"
+                  :action="actions"
+                  :on-success="onsuccess3"
+                  multiple
+                  :limit="1"
+                  :file-list="fileList"
+                >
+                  <el-button
+                  style="margin-left: -23.375rem;
+              width: 7.375rem;
+              font-size: 1rem;
+              font-weight: 400;
+              margin-top: 0.3rem!important;
+              margin-bottom: 0rem!important;
+              height: 100%;"
+                    size="small"
+                    type="primary"
+                    >上传</el-button
+                  >
+                </el-upload>
+              </el-form-item>
+              <el-form-item label="法人身份证：" prop="realname">
+                <el-upload
+                  class="upload-demo"
+                  :action="actions"
+                  :on-success="onsuccess4"
+                  multiple
+                  :limit="1"
+                >
+                  <el-button
+                  style="margin-left: -23.375rem;
+              width: 7.375rem;
+              font-size: 1rem;
+              font-weight: 400;
+              margin-top: 0.3rem!important;
+              margin-bottom: 0rem!important;
+              height: 100%;"
+                    size="small"
+                    type="primary"
+                    >上传</el-button
+                  >
+                </el-upload>
+              </el-form-item>
+              <el-form-item label="公司章程：" prop="username">
+                <el-upload
+                  class="upload-demo"
+                  :action="actions"
+                  :on-success="onsuccess5"
+                  multiple
+                  :limit="1"
+                  :file-list="fileList"
+                >
+                  <el-button
+                  style="margin-left: -23.375rem;
+                    width: 7.375rem;
+                    font-size: 1rem;
+                    font-weight: 400;
+                    margin-top: 0.3rem!important;
+                    margin-bottom: 0rem!important;
+                    height: 100%;"
+                    size="small"
+                    type="primary"
+                    >上传</el-button
+                  >
+                </el-upload>
+              </el-form-item>
+              <el-form-item label="银行账户开户证明：" prop="realname">
+                <el-upload
+                  class="upload-demo"
+                  :action="actions"
+                  :on-success="onsuccess6"
+                  multiple
+                  :limit="1"
+                  :file-list="fileList"
+                >
+                  <el-button
+                  style="margin-left: -23.375rem;
+              width: 7.375rem;
+              font-size: 1rem;
+              font-weight: 400;
+              margin-top: 0.3rem!important;
+              margin-bottom: 0rem!important;
+              height: 100%;"
+                    size="small"
+                    type="primary"
+                    >上传</el-button
+                  >
+                </el-upload>
+              </el-form-item>
+              <el-form-item>
+                上传内容说明：需要上传扫描件或清晰的照看，支持.pdf、.png格式文件
+              </el-form-item>
+            </div>
+            <el-button type="primary" @click="resetclick">取消</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')"
+              >保存</el-button
+            >
           </div>
         </el-form>
-        
       </div>
-     
     </div>
   </div>
 </template>
@@ -221,263 +445,247 @@ export default {
   data() {
     var checkPhone = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('手机号不能为空'));
+        return callback(new Error("手机号不能为空"));
       } else {
-        const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+        const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
         console.log(reg.test(value));
         if (reg.test(value)) {
           callback();
         } else {
-          return callback(new Error('请输入正确的手机号'));
+          return callback(new Error("请输入正确的手机号"));
         }
       }
     };
     return {
-      flag:false,
-      groupState:false,
-      renzhengtype: this.$route.params.type ?  this.$route.params.type : '1',
-      groupData:[],
-      tagsData:[],
-      companyData:[],
-      departmentData:[],
+      flag: false,
+      groupState: false,
+      renzhengtype: this.$route.params.type ? this.$route.params.type : "1",
+      actions: "http://pg.grepayment.com/core/api/files/upload",
+      fileList: [],
+      groupData: [],
+      tagsData: [],
+      companyData: [],
+      departmentData: [],
       optionsSelect: [],
+      objfile: {},
+      swf:false,
+      certificationDetail:"",//图片路径
       ruleForm: {
-        username: "", //用户名称：
-        realname: "", //真实姓名
-        password: "", //密码：
-        group: "", //用户组
-        service: "",  //服务范围
-        service_num: "",  //被选择数
-        check_num: "",  //平均检测天数
-        company_id: "", //公司
-        department_id: "", //部门
-        position: "", //职位：
-        mobile: "", //电话：
-        status: 1, //选择
-        istop: 0, //选择
-        remarks: "" //备注：
+        companyName: "",
+        bankCardID: "",
+        bizCertifNo: "",
+        registeredAddr: "",
+        bizAddr: "",
+        industry: "",
+        website: "",
+        representativeName: "",
+        representativeIds: "",
+        bizContactName: "",
+        bizContactNumber: "",
+       
+      },
+      merchantInfoFile: "",
+          bizRegistCertificateFile: "",
+          certificateIncorporationFile: "",
+          idFile: "",
+          articlesFile: "",
+          bankAccountFile: "",
+      ruleForm1: {
+        // companyName: "",
+        // bankCardID: "",
+        // bizCertifNo: "",
+        // registeredAddr: "",
+        // bizAddr: "",
+        // industry: "",
+        // website: "",
+        // representativeName: "",
+        // representativeIds: "",
+        // bizContactName: "",
+        // bizContactNumber: ""
       },
       rules: {
-        // username: [
-        //   { required: true, message: "请输入用户名称", trigger: "blur" },
-        //   { min: 3, max: 20, message: "长度在 3 到 20 个字符", trigger: "blur" }
-        // ],
-        // realname:{required: true, message: "请输入真实姓名", trigger: "blur" },
-        // password:{required: true, message: "请输入用户密码", trigger: "blur" },
-        // group:{required: true, message: "请选择用户组", trigger: "blur" },
-        // company_id:{required: true, message: "请选择所属公司", trigger: "blur" },
-        // department_id:{required: true, message: "请选择所属部门", trigger: "blur" },
-        // position:{required: true, message: "请输入职位", trigger: "blur" },
-        // mobile:[
-        //   {validator: checkPhone, trigger: 'blur'}
-        // ],
-        // service_num:{type:"number",message: "被选择数必须为数字" },
-        // check_num:{type:"number",message: "平均检测天数必须为数字"},
+        companyName: [
+          { required: true, message: "请输入企业名称", trigger: "blur" },
+          { min: 3, max: 50, message: "长度在 3 到 50 个字符", trigger: "blur" }
+        ],
+        bankCardID:{required: true, message: "请输入银行卡号", trigger: "blur" },
+        bizCertifNo:{required: true, message: "请输入营业执照号", trigger: "blur" },
+        registeredAddr:{required: true, message: "请输入注册地址", trigger: "blur" },
+        bizAddr:{required: true, message: "请输入经营地址", trigger: "blur" },
+        industry:{required: true, message: "请输入所属行业", trigger: "blur" },
+        website:{required: true, message: "请选择官网链接", trigger: "blur" },
+        representativeName:{required: true, message: "请输入法人姓名", trigger: "blur" },
+        bizContactName:{required: true, message: "请输入商务联系人姓名", trigger: "blur" },
+        bizContactNumber:{required: true, message: "请输入法人联系人方式", trigger: "blur" },
+        representativeIds:{required: true, message: "请输入商务联系人证件号码", trigger: "blur" },
+       
       }
     };
   },
   created() {
+    
   },
   methods: {
-    //联动用户组
-    handleGroup(v){
-      if(v == 2){
-        this.groupState = true;
-      }else{
-        this.groupState = false;
-      }
+   
+       //下载
+    dowload(hrefs) {
+      
+      console.log(hrefs);
+      window.open(hrefs);
     },
-    //联动部门
-    handleCompany(val){
-      this.departmentList(val)
-      this.ruleForm.department_id = ''
+    onsuccess1(response, file, fileList) {
+      this.objfile.merchantInfoFile = file.response.result;
     },
-    //获取用户组列表
-    groupList(){
-      let self = this;
-      self.$api.get(
-        'group/',
-        {},
-        r => {
-          this.groupData = r.data.filter(v => v.name != '超级管理员')
-          // this.groupData = r.data
-        },
-        e => {
-          self.$message.error(e.msg);
-        }
-      );
+    onsuccess2(response, file, fileList) {
+      this.objfile.bizRegistCertificateFile = file.response.result;
     },
+    onsuccess3(response, file, fileList) {
+      this.objfile.certificateIncorporationFile = file.response.result;
+    },
+    onsuccess4(response, file, fileList) {
+      this.objfile.idFile = file.response.result;
+    },
+    onsuccess5(response, file, fileList) {
+      this.objfile.articlesFile = file.response.result;
+    },
+    onsuccess6(response, file, fileList) {
+      this.objfile.bankAccountFile = file.response.result;
+    },
+    
 
-    //获取用户标签
-    tagList(){
-      let self = this;
-      self.$api.get(
-        'tags/',
-        {},
-        r => {
-          this.tagsData = r.data
-          // this.groupData = r.data
-        },
-        e => {
-          self.$message.error(e.msg);
-        }
-      );
-    },
-    //获取公司列表
-    companyList(){
-      let self = this;
-      self.$api.post(
-        'companytype/',
-        {},
-        r => {
-          this.companyData = r.data
-        },
-        e => {
-          self.$message.error(e.msg);
-        }
-      );
-    },
-    //获取部门列表
-    departmentList(id){
-      let self = this;
-      self.$api.get(
-        'orglist/',
-        {company_id:id},
-        r => {
-          // this.departmentData = r.data.list
-          for (let i=0;i<r.data.list.length;i++){
-              self.departmentData.push({'id':r.data.list[i].id,'name':r.data.list[i].lefthtml + r.data.list[i].name})
-          }
-        },
-        e => {
-          self.$message.error(e.msg);
-        }
-      );
-    },
     // 返回
     goBack() {
       this.$router.go(-1);
     },
     submitForm(formName) {
-      // let self = this
-      // var myreg = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
-      // if (!myreg.test(self.ruleForm.mobile)) {
-      //    self.$message.error('请输入正确的联系方式')
-      //     return false
-      // }
+      let self = this;
       this.$refs[formName].validate(valid => {
         if (valid) {
+          if(Object.keys(self.objfile).length==6){
             this.addManage();
+          }else{
+          console.log("error submit!!");
+          self.$message.error("请上传完整文件信息");
+          return false;
+          }
         } else {
           console.log("error submit!!");
+          self.$message.error("error submit!!");
           return false;
         }
       });
     },
     //新增用户信息
     addManage() {
-      // 成功
       let self = this;
-      self.$router.push({
-        name: "basic-setup",
-        params:{
-          type:'1'
-        }
-
-      });
-      // 失败
-      // self.$router.push({
-      //   name: "basic-setup",
-      //   params:{
-      //     type:'3'
-      //   }
-
-      // });
-      // let self = this;
-      // self.$api.post(
-      //   "user",
-      //   self.ruleForm,
-      //   r => {
-      //     this.$message({
-      //       message: r.message,
-      //       type: "success"
-      //     });
-      //     setTimeout(() => {
-      //       this.$router.push({
-      //         name: "user-list"
-      //       });
-      //     }, 500);
-      //   },
-      //   e => {
-      //     self.$message.error(e.data);
-      //   }
-      // );
-
-    },
-    //修改用户信息保存
-    updataManage(){
-      let self = this;
-      self.$api.put(
-        'user/'+self.$route.params.id,
+      console.log(self.ruleForm);
+      self.$api.post(
+        "/gpmanage/partner/merchant/bind",
         self.ruleForm,
         r => {
+          if (r.code == 1000) {
+            //文件新增
+            this.fileadd();
+          } 
+        },
+        e => {
+          self.$message.error(e.result);
+        }
+      );
+    },
+    //文件信息保存
+    fileadd() {
+      
+      // alert(this.fileList[0].name)
+      console.log(this.objfile);
+      let self = this;
+      self.$api.post(
+        "/gpmanage/partner/merchant/certif",
+        self.objfile,
+        r => {
+          
+          self.$utils.setloc("group_id", 2);//認證通過
           this.$message({
-            message: r.message,
+            message: r.info,
             type: "success"
           });
           setTimeout(() => {
-            this.$router.push({
-              name: "user-list"
+            self.$router.push({
+              name: "basic-setup",
             });
           }, 500);
         },
         e => {
-          self.$message.error(e.msg);
+          self.$message.error(e.result);
         }
       );
     },
-    // 修改用户信息展示
-    modify() {
-      let self = this;
-      // 调用后端登陆接口
-      self.$api.get(
-        "user/" + self.$route.params.id,
-        { id: self.$route.params.id },
-        r => {
-          if(r.data.group == 2){
-            this.groupState = true;
-          }
-          this.ruleForm = r.data;
-          this.ruleForm.password = ''
-          this.departmentList(r.data.company_id)
-        },
-        e => {
-          self.$message.error(e.msg);
-        }
-      );
-    },
+
     //取消
-    resetclick(){
+    resetclick() {
       let self = this;
       self.$router.push({
-        path: "/basic-setup",
+        path: "/basic-setup"
       });
-
-    }
+    },
+    //獲取商戶信息
+    getJobmess() {
+      
+      let self = this;
+      // 调用后端获取商户信息接口
+      self.$api.get("gpmanage/partner/merchant/info", {}, r => {
+        if (r.code == 1000) {
+          self.ruleForm1 = r.result.merchanDetail;
+          self.merchantInfoFile=r.result.certificationDetail.merchantInfoFile;
+          self.bizRegistCertificateFile=r.result.certificationDetail.bizRegistCertificateFile;
+          self.certificateIncorporationFile=r.result.certificationDetail.certificateIncorporationFile;
+          self.idFile=r.result.certificationDetail.idFile;
+          self.articlesFile=r.result.certificationDetail.articlesFile;
+          self.bankAccountFile=r.result.certificationDetail.bankAccountFile;
+         
+        }
+      });
+    },
+    beforeUpload(file) { 		
+      debugger		
+				var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)				
+				//const extension = testmsg === 'xls'
+				///const extension2 = testmsg === 'xlsx'
+				const isLt2M = file.size / 1024 / 1024 < 10  //这里做文件大小限制
+				// if(!extension && !extension2) {
+				// 	this.$message({
+				// 		message: '上传文件只能是 xls、xlsx格式!',
+				// 		type: 'warning'
+				// 	});
+				// }
+				if(!isLt2M) {
+					this.$message({
+						message: '上传文件大小不能超过 10MB!',
+						type: 'warning'
+					});
+				}
+				return  isLt2M
+			}
   },
-  mounted: function() {}
+  mounted: function() {
+    debugger
+    if(this.$utils.getloc("group_id")==1 || this.$utils.getloc("group_id")==2){
+    this.getJobmess();
+  }
+  }
 };
 </script>
 <style lang="less" src="../sharing.less"></style>
 <style lang="less" src="./add-user.less"></style>
 <style>
 .add-manage-info .radio-box {
-  line-height: 4.375rem!important;
+  line-height: 4.375rem !important;
   width: 32.125rem;
   height: 70px;
   text-align: left;
 }
-.add-manage-info .el-radio, .el-radio__input{
+.add-manage-info .el-radio,
+.el-radio__input {
   line-height: 4.375rem;
 }
 .radio-box .el-radio__input.is-checked + .el-radio__label {

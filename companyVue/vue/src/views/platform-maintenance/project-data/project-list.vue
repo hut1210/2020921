@@ -11,40 +11,39 @@
           :model="form"
           class="demo-form-inline"
         >
+       
         <div class="search-input">
             <el-form-item label="GrePay订单号:">
               <el-input
-                v-model="form.keyword"
+                v-model="form.merchantId"
                 placeholder="请输入GrePay订单号"
               ></el-input>
             </el-form-item>
             <el-form-item label="商户订单号:">
               <el-input
-                v-model="form.keyword"
+                v-model="form.merchantOrderId"
                 placeholder="请输入商户订单号"
               ></el-input>
             </el-form-item>
             <el-form-item label="用户ID:">
                 <el-input
-                  v-model="form.keyword"
+                  v-model="form.merchantUserId"
                   placeholder="请输入用户ID"
                 ></el-input>
               </el-form-item>
             <el-form-item label="支付方式:">
-              <el-select v-model="form.status" placeholder="请选择">
-                <el-option>请选择</el-option>
+              <el-select v-model="form.paytypeId" placeholder="请选择">
                 <el-option
                   v-for="item in statusData"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
                 >
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="订单状态:">
                 <el-select v-model="form.status" placeholder="请选择">
-                  <el-option>请选择</el-option>
                   <el-option
                     v-for="item in statusDatas"
                     :key="item.value"
@@ -54,12 +53,13 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-            <el-form-item label="生成时间:" prop>
+            <el-form-item  style="margin-left: 2.5rem" label="生成时间:" prop>
               <el-date-picker
+               style="height: 2.5rem;"
                 class="ydateinput"
-                v-model="startime"
-                type="daterange"
-                value-format="yyyy-MM-dd"
+                v-model="form.startime"
+                type="datetimerange"
+                format="yyyy-MM-dd HH:mm:ss"
                 range-separator="至"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
@@ -82,25 +82,40 @@
         style="width: 100%"
         height="49.3rem"
       >
-      <el-table-column fixed prop="company_name" label="GrePay订单号" width="160"></el-table-column>
-      <el-table-column prop="tongji_month" label="商户订单号" width="160"></el-table-column>
-      <el-table-column prop="two_rate" label="资金流水单号" width="160"></el-table-column>
-      <el-table-column prop="defect_rate" label="用户ID" width="160"></el-table-column>
-      <el-table-column prop="safe_two_rate" label="订单金额" width="160"></el-table-column>
-      <el-table-column prop="safe_defect_rate" label="业务名称" width="160"></el-table-column>
-      <el-table-column prop="code_rate" label="用户ID" width="160"></el-table-column>
-      <el-table-column prop="diff_rate" label="订单金额" width="160"></el-table-column>
-      <el-table-column prop="safe_two_rate" label="支付方式" width="160"></el-table-column>
-      <el-table-column prop="safe_defect_rate" label="结算主体" width="160"></el-table-column>
-      <el-table-column prop="code_rate" label="支付方式" width="160"></el-table-column>
-      <el-table-column prop="diff_rate" label="商户费率" width="160"></el-table-column>
-      <el-table-column prop="safe_two_rate" label="订单手续费" width="160"></el-table-column>
-      <el-table-column prop="safe_defect_rate" label="商户结算金额" width="160"></el-table-column>
-      <el-table-column prop="code_rate" label="商户名称" width="160"></el-table-column>
-      <el-table-column prop="code_rate" label="订单状态" width="160"></el-table-column>
-      <el-table-column prop="diff_rate" label="订单生成时间" width="160"></el-table-column>
-      <el-table-column prop="diff_rate" label="更新时间" width="160"></el-table-column>
+      <el-table-column fixed prop="merchantId" label="商户ID"  width="160"></el-table-column>
+      <el-table-column prop="amount" label="金额" width="160"></el-table-column>
+      <el-table-column prop="paytypeName" label="支付方式"  width="160">
+      </el-table-column>
+      <el-table-column prop="paytypeRate" label="订单费率" width="160" ></el-table-column>
+      <el-table-column prop="countryCode" label="国家码" width="160"></el-table-column>
+      <el-table-column prop="currency" label="币种代码" width="160"></el-table-column>
+      <el-table-column prop="merchantOrderId" label="商户订单ID" width="250"></el-table-column>
+      <el-table-column prop="merchantSettlementAmount" label="商户结算金额" width="250" ></el-table-column>
+      <el-table-column prop="userId" label="商户用户ID" width="250"></el-table-column>
+      <el-table-column prop="merchantName" label="商户用户名" width="250"></el-table-column>
+      <el-table-column prop="merchantUserEmail" label="商户用户邮箱" width="250"></el-table-column>
+      <el-table-column prop="merchantUserIp" label="商户用户名IP" width="250"></el-table-column>
+      <el-table-column prop="merchantUserPhone" label="商户用户手机号" width="250"></el-table-column>
+      <el-table-column prop="productName" label="产品名称" width="160" ></el-table-column>
+      <el-table-column prop="productDescription" label="产品描述" width="160" ></el-table-column>
+      <el-table-column prop="status" label="状态" width="100" >
+        <template slot-scope="scope">
+          <span
+          v-if="scope.row.payType==1"
+            size="mini"
+          >成功</span>
+          <span
+          v-if="scope.row.payType==2"
+            size="mini"
+          >失败</span>
+          <span
+          v-else
+          size="mini"
+        >处理中</span>
+        </template>
 
+      </el-table-column>
+      <el-table-column prop="startTime" label="时间" width="160"></el-table-column>
       </el-table>
     </div>
 
@@ -122,20 +137,66 @@ export default {
   data() {
     return {
       form: {
-        date: "",
-        word: ""
+        merchantId:"",
+        merchantOrderId:"",
+        merchantUserId:"",
+        paytypeId:"",
+        status:"0",
+        startime:[]
       },
-      statusData:[],
       tableData: [],
+      statusData: [],
+      statusDatas: [
+      {
+          value: '',
+          label: '请选择'
+        },
+        {
+          value: '0',
+          label: '处理中'
+        },
+        {
+          value: '1',
+          label: '支付成功'
+        },
+        {
+          value: '2',
+          label: '支付失败'
+        },
+      ],
       pageIndex: 1,
-      total: 0
+      total: 0,
+      pageSize:10,
     };
   },
   created() {
-    // this.getList();
-    // this.getCompanyType();
+    this.getType();
+    this.getdate();
+
   },
   methods: {
+    formatDate:function (date) {  
+    var y = date.getFullYear();  
+    var m = date.getMonth() + 1;  
+    m = m < 10 ? ('0' + m) : m;  
+    var d = date.getDate();  
+    d = d < 10 ? ('0' + d) : d;  
+    var h = date.getHours();  
+    h = h < 10 ? ('0' + h) : h;
+    var minute = date.getMinutes();  
+    minute = minute < 10 ? ('0' + minute) : minute; 
+    var second= date.getSeconds();  
+    second = second < 10 ? ('0' + second) : second;  
+    return y + '-' + m + '-' + d+' '+h+':'+minute+':'+ second;  
+},
+//时间 获取
+getdate(){
+      var myDate = new Date();
+      this.form.startime.push(new Date( myDate.getFullYear(), myDate.getMonth(),  myDate.getDate(), 0, 0))
+      this.form.startime.push(new Date( myDate.getFullYear(), myDate.getMonth(),  myDate.getDate(), 23, 59))
+      console.log('startT',this.form.startime[0])
+      console.log('endT',this.form.startime[1])
+    },
     //表头背景色
     getClass() {
       return "background: #66CE90FF";
@@ -184,46 +245,55 @@ export default {
       this.pageIndex = val;
       this.getList();
     },
-    //获取公司列表
+    //获取订单列表
     getList() {
       let self = this;
-      self.$api.get(
-        "/projectCount",
-        {
-          page: self.pageIndex,
-          pagesize: 10,
-          month: self.form.date,
-          name: this.form.word
-        },
+      self.$api.post(
+        "/gpmanage/partner/merchant/orders",
+       {
+    "pageNum":self.pageIndex,
+    "size":self.pageSize,
+    "orderID":self.form.merchantId,
+    "MOrderID":self.form.merchantOrderId,
+    "paytp":self.form.paytypeId,
+    "status":self.form.status,
+    "startTime":self.formatDate(self.form.startime[0]),
+    "endTime":self.formatDate(self.form.startime[1])
+
+       },
         r => {
           //console.log(r.data.total_count);
-          self.tableData = r.data.data;
-          self.total = r.data.total_count; //总条数
+          self.tableData = r.result.list;
+          self.total = r.result.total;
         },
         e => {
           self.$message.error(e.message);
         }
       );
     },
-    //获取公司类型
-    getCompanyType() {
+    //获取支付方式
+    getType() {
       let self = this;
-      self.$api.post(
-        "companytype",
+      self.$api.get(
+        "/core/manager/pay/type",
         {},
         r => {
-          //console.log(r.data);
+          
+          self.statusData = r.result;
         },
         e => {
           self.$message.error(e.message);
         }
       );
-    }
-  }
+    },
+  },
+  mounted() {
+    this.getList();
+  },
 };
 </script>
 
 <style lang="less" scoped src="./projectnum-list.less"></style>
 <style>
-    .el-table td, .el-table th.is-leaf{background: #49a1c3 !important;}
+    /* .el-table td, .el-table th.is-leaf{background: #49a1c3 !important;} */
 </style>

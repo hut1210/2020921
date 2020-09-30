@@ -2,7 +2,14 @@
   <div class="el-aside" :class="{ 'el-aside-collapse': isCollapse }">
     <div class="proTitle">
       <!--      <img src="../../images/logo.png" /> -->
-      业务管理系统
+      商户系统
+      <el-button  
+      style="margin-left: 1.375rem;
+      margin-top: 1.125rem;
+      background: rgb(236 245 255 / 0.5);
+      color:#fff;font-weight: 600;"
+       @click="toModifyPassword"
+      type="primary" size="mini" round plain>首页</el-button>
     </div>
 
     <div class="sidebar">
@@ -10,6 +17,7 @@
         <img class="imgs" src="../../images/companylogo.jpg" alt="" />
       </div>
       <el-menu
+      :default-openeds="['1','2' ,'3']"
         class="sidebar-el-menu"
         :collapse="isCollapse"
         :default-active="$route.path"
@@ -23,7 +31,7 @@
           ><i class="el-icon-s-tools"></i>基本设置</el-menu-item
         > -->
         <!-- 资质信息已认证group_id==1,未认证0 -->
-        <el-submenu index="1" v-if='$utils.getloc("group_id") == 0'>
+        <el-submenu index="1" v-if='$utils.getloc("group_id") == 0 || $utils.getloc("group_id") == 2 || $utils.getloc("group_id")!= 1'>
           <template slot="title">
             <i class="el-icon-user"></i>
             <span>商户信息管理</span>
@@ -32,7 +40,7 @@
             <el-menu-item index="basic-setup">商户资质信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="1" v-if='$utils.getloc("group_id") == 1'>
+        <el-submenu index="1"  v-if='$utils.getloc("group_id") == 1'>
           <template slot="title">
             <i class="el-icon-user"></i>
             <span>商户信息管理</span>
@@ -43,7 +51,7 @@
           </el-menu-item-group>
         </el-submenu>
        
-        <el-submenu index="2" v-if='$utils.getloc("group_id") == 1'>
+        <el-submenu index="2"  v-if='$utils.getloc("group_id") == 1'>
           <template slot="title">
             <i class="el-icon-s-home"></i>
             <span>交易管理</span>
@@ -52,7 +60,7 @@
             <el-menu-item index="project-list">订单信息查询</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="3" v-if='$utils.getloc("group_id") == 1'>
+        <el-submenu index="3"  v-if='$utils.getloc("group_id") == 1'>
           <template slot="title">
             <i class="el-icon-menu"></i>
             <span>资金管理</span>
@@ -64,11 +72,14 @@
               >代付记录</el-menu-item
             >
             <!-- 无页面 -->
-            <el-menu-item index="manage-info-list"
+            <!-- <el-menu-item index="manage-info-list"
               >资金流水记录</el-menu-item
-            >
+            > -->
           </el-menu-item-group>
         </el-submenu>
+        <a href="https://shimo.im/docs/YQCHqvGDjKK6wwXP"  target="_blank" rel="noopener">
+        <el-menu-item style="color: #606266;"  v-if='$utils.getloc("group_id") == 1'><i class="el-icon-s-order"></i>开发者文档</el-menu-item>
+       </a>
       </el-menu>
     </div>
   </div>
@@ -125,7 +136,11 @@ export default {
     this.showFlag = this.$store.state.showFlag;
   },
 
-  methods: {}
+  methods: {
+    toModifyPassword(){
+      this.$router.push({ path: '/basic-setup' })
+    },
+  }
 };
 </script>
 
