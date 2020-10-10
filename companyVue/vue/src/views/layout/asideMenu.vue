@@ -77,7 +77,7 @@
             > -->
           </el-menu-item-group>
         </el-submenu>
-        <a href="https://shimo.im/docs/YQCHqvGDjKK6wwXP"  target="_blank" rel="noopener">
+        <a href="https://shimo.im/docs/wpxgCdcYxKhYWrG8"  target="_blank" rel="noopener">
         <el-menu-item style="color: #606266;"  v-if='$utils.getloc("group_id") == 1'><i class="el-icon-s-order"></i>开发者文档</el-menu-item>
        </a>
       </el-menu>
