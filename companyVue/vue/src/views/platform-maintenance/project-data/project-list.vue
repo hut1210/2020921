@@ -91,8 +91,8 @@
       <el-table-column prop="currency" label="币种代码" width="160"></el-table-column>
       <el-table-column prop="merchantOrderId" label="商户订单ID" width="250"></el-table-column>
       <el-table-column prop="merchantSettlementAmount" label="商户结算金额" width="250" ></el-table-column>
-      <el-table-column prop="userId" label="商户用户ID" width="250"></el-table-column>
-      <el-table-column prop="merchantName" label="商户用户名" width="250"></el-table-column>
+      <el-table-column prop="merchantUserId" label="商户用户ID" width="250"></el-table-column>
+      <el-table-column prop="merchantUserName" label="商户用户名" width="250"></el-table-column>
       <el-table-column prop="merchantUserEmail" label="商户用户邮箱" width="250"></el-table-column>
       <el-table-column prop="merchantUserIp" label="商户用户名IP" width="250"></el-table-column>
       <el-table-column prop="merchantUserPhone" label="商户用户手机号" width="250"></el-table-column>

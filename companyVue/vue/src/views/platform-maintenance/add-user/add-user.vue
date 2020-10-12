@@ -67,14 +67,7 @@
                   readonly
                 ></el-input>
               </el-form-item>
-              <el-form-item label="商务联系人证件号码：" prop="representativeIds">
-                <el-input
-                  v-model="ruleForm1.representativeIds"
-                  placeholder="输入商务联系人证件号码"
-                  clearable
-                  readonly
-                ></el-input>
-              </el-form-item>
+              
               <el-form-item label="商务联系人方式：" prop="bizContactName">
                 <el-input
                   v-model="ruleForm1.bizContactNumber"
@@ -225,13 +218,6 @@
               <el-input
                 v-model="ruleForm.bizContactName"
                 placeholder="输入商务联系人姓名"
-                clearable
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="商务联系人证件号码：" prop="representativeIds">
-              <el-input
-                v-model="ruleForm.representativeIds"
-                placeholder="输入商务联系人证件号码"
                 clearable
               ></el-input>
             </el-form-item>
@@ -517,7 +503,6 @@ export default {
         representativeName:{required: true, message: "请输入法人姓名", trigger: "blur" },
         bizContactName:{required: true, message: "请输入商务联系人姓名", trigger: "blur" },
         bizContactNumber:{required: true, message: "请输入法人联系人方式", trigger: "blur" },
-        representativeIds:{required: true, message: "请输入商务联系人证件号码", trigger: "blur" },
        
       }
     };
