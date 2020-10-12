@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         // 代理接口的域名
-        target: 'http://test.gettin.in.', // dev
+        target: 'http://test.gettin.in', // dev
         //target: 'http://pg.grepayment.com', // dev
         secure: false,
         changeOrigin: true,

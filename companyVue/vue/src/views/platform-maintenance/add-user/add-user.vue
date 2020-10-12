@@ -67,7 +67,14 @@
                   readonly
                 ></el-input>
               </el-form-item>
-              
+              <!-- <el-form-item label="商务联系人证件号码：" prop="representativeIds">
+                <el-input
+                  v-model="ruleForm1.representativeIds"
+                  placeholder="输入商务联系人证件号码"
+                  clearable
+                  readonly
+                ></el-input>
+              </el-form-item> -->
               <el-form-item label="商务联系人方式：" prop="bizContactName">
                 <el-input
                   v-model="ruleForm1.bizContactNumber"
@@ -221,6 +228,13 @@
                 clearable
               ></el-input>
             </el-form-item>
+            <!-- <el-form-item label="商务联系人证件号码：" prop="representativeIds">
+              <el-input
+                v-model="ruleForm.representativeIds"
+                placeholder="输入商务联系人证件号码"
+                clearable
+              ></el-input>
+            </el-form-item> -->
             <el-form-item label="商务联系人方式：" prop="bizContactName">
               <el-input
                 v-model="ruleForm.bizContactNumber"
@@ -446,7 +460,7 @@ export default {
       flag: false,
       groupState: false,
       renzhengtype: this.$route.params.type ? this.$route.params.type : "1",
-      actions: "http://pg.grepayment.com/core/api/files/upload",
+      actions:  this.$api.getUrlTitle()+"/core/api/files/upload",
       fileList: [],
       groupData: [],
       tagsData: [],
@@ -465,7 +479,7 @@ export default {
         industry: "",
         website: "",
         representativeName: "",
-        representativeIds: "",
+        representativeIds: "111",
         bizContactName: "",
         bizContactNumber: "",
        
@@ -503,6 +517,7 @@ export default {
         representativeName:{required: true, message: "请输入法人姓名", trigger: "blur" },
         bizContactName:{required: true, message: "请输入商务联系人姓名", trigger: "blur" },
         bizContactNumber:{required: true, message: "请输入法人联系人方式", trigger: "blur" },
+        representativeIds:{required: true, message: "请输入商务联系人证件号码", trigger: "blur" },
        
       }
     };

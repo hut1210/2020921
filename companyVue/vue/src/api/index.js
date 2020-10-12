@@ -6,8 +6,8 @@ import router from '../router'
 
 // axios.defaults.timeout = 5000
 // 配置API接口公共地址
-var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://pg.grepayment.com'
-//var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://test.gettin.in'
+//var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://pg.grepayment.com'
+var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://test.gettin.in'
 //var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://pg.helonovel.in'
 
 // 自定义判断元素类型JS
@@ -179,6 +179,9 @@ function exportTable (url, params, downLoadFn, errFn) {
 }
 // 返回在vue模板中的调用接口
 export default {
+ getUrlTitle:function(){
+  return root;
+},
   get: function (url, params, success, failure) {
     return apiAxios('GET', url, params, success, failure)
   },
