@@ -82,7 +82,7 @@
         style="width: 100%"
         height="49.3rem"
       >
-      <el-table-column fixed prop="merchantId" label="商户ID"  width="160"></el-table-column>
+      <el-table-column fixed prop="merchantId" label="商户ID"  width="200"></el-table-column>
       <el-table-column prop="amount" label="金额" width="160"></el-table-column>
       <el-table-column prop="paytypeName" label="支付方式"  width="160">
       </el-table-column>
@@ -115,7 +115,7 @@
         </template>
 
       </el-table-column>
-      <el-table-column prop="startTime" label="时间" width="160"></el-table-column>
+      <el-table-column prop="createTime" label="时间" width="180"></el-table-column>
       </el-table>
     </div>
 

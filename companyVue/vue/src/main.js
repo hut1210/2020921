@@ -20,16 +20,14 @@ Vue.prototype.$utils = utils
 // 将API方法绑定到全局
 Vue.prototype.$api = api
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requireLogin)) {
-    if (localStorage.getItem('token')) {
-      next()
-    } else {
-      next({
-        path: '/login'
-      })
-    }
+  if (localStorage.getItem('token')) {
+    next();
   } else {
-    next()
+    if (to.path == "/login") {
+      next();
+    } else {
+      next("/login");
+    }
   }
 })
 // 将ElementUI绑定到全局
