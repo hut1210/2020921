@@ -6,8 +6,8 @@ import router from '../router'
 
 // axios.defaults.timeout = 5000
 // 配置API接口公共地址
-//var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://pg.grepayment.com'
-var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://test.gettin.in'
+var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://pg.grepayment.com'
+//var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://test.gettin.in'
 //var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://pg.helonovel.in'
 
 // 自定义判断元素类型JS

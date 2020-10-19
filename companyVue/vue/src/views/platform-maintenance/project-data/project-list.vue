@@ -13,24 +13,24 @@
         >
        
         <div class="search-input">
-            <el-form-item label="GrePay订单号:">
+            <!-- <el-form-item label="平台单号:">
               <el-input
                 v-model="form.merchantId"
-                placeholder="请输入GrePay订单号"
+                placeholder="平台单号"
               ></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="商户订单号:">
               <el-input
                 v-model="form.merchantOrderId"
                 placeholder="请输入商户订单号"
               ></el-input>
             </el-form-item>
-            <el-form-item label="用户ID:">
+            <!-- <el-form-item label="用户ID:">
                 <el-input
                   v-model="form.merchantUserId"
                   placeholder="请输入用户ID"
                 ></el-input>
-              </el-form-item>
+              </el-form-item> -->
             <el-form-item label="支付方式:">
               <el-select v-model="form.paytypeId" placeholder="请选择">
                 <el-option
@@ -53,7 +53,7 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-            <el-form-item  style="margin-left: 2.5rem" label="生成时间:" prop>
+            <el-form-item  label="生成时间:" prop>
               <el-date-picker
                style="height: 2.5rem;"
                 class="ydateinput"
@@ -65,7 +65,10 @@
                 end-placeholder="结束日期"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item>
+            <el-form-item style="
+            position: absolute;
+            right: -8px;
+        ">
             <el-button class="btn-query" @click="onSubmit">查询</el-button> 
             <el-button class="btn-query" @click="onSubmit">导出</el-button> 
           </el-form-item>
@@ -100,20 +103,12 @@
       <el-table-column prop="productDescription" label="产品描述" width="160" ></el-table-column>
       <el-table-column prop="status" label="状态" width="100" >
         <template slot-scope="scope">
-          <span
-          v-if="scope.row.payType==1"
-            size="mini"
-          >成功</span>
-          <span
-          v-if="scope.row.payType==2"
-            size="mini"
-          >失败</span>
-          <span
-          v-else
-          size="mini"
-        >处理中</span>
+          <span v-if="scope.row.status==0" size="mini" >处理中</span>
+          <span v-else-if="scope.row.status==1" size="mini" >成功</span>
+          <span v-else-if="scope.row.status==2" size="mini" >失败</span>
+          <span v-else-if="scope.row.status==3" size="mini" >已结算</span>
+          <span v-else size="mini">未知状态</span>
         </template>
-
       </el-table-column>
       <el-table-column prop="createTime" label="时间" width="180"></el-table-column>
       </el-table>
@@ -162,6 +157,10 @@ export default {
         {
           value: '2',
           label: '支付失败'
+        },
+        {
+          value: '3',
+          label: '已结算'
         },
       ],
       pageIndex: 1,
@@ -254,7 +253,7 @@ getdate(){
     "pageNum":self.pageIndex,
     "size":self.pageSize,
     "orderID":self.form.merchantId,
-    "MOrderID":self.form.merchantOrderId,
+    "merchantOrderID":self.form.merchantOrderId,
     "paytp":self.form.paytypeId,
     "status":self.form.status,
     "startTime":self.formatDate(self.form.startime[0]),

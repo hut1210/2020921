@@ -7,10 +7,10 @@
             <div class="searchBox">
                 <el-form :inline="true" ref="form" :model="form" class="demo-form-inline">
                     <div class="search-input">
-                        <el-form-item label="GrePay订单号:">
+                        <el-form-item label="平台单号:">
                           <el-input
                             v-model="form.keyword"
-                            placeholder="请输入GrePay订单号"
+                            placeholder="请输入平台单号"
                           ></el-input>
                         </el-form-item>
                         <el-form-item label="商户订单号:">
@@ -93,7 +93,7 @@
             style="width: 100%"
             height="49.3rem"
             >
-                <el-table-column fixed prop="company_name" label="GrePay订单号" width=""></el-table-column>
+                <el-table-column fixed prop="company_name" label="平台单号" width=""></el-table-column>
                 <el-table-column prop="tongji_month" label="商户订单号" width=""></el-table-column>
                 <el-table-column prop="two_rate" label="资金流水单号" width=""></el-table-column>
                 <el-table-column prop="defect_rate" label="商户号" width=""></el-table-column>

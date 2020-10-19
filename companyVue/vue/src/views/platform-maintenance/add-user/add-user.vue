@@ -193,9 +193,9 @@
                 placeholder="输入公司名称"
               ></el-input>
             </el-form-item>
-            <el-form-item label="银行卡号：" prop="bankCardID">
+            <el-form-item label="银行卡号：" prop="bankCardId">
               <el-input
-                v-model="ruleForm.bankCardID"
+                v-model="ruleForm.bankCardId"
                 placeholder="输入银行卡号"
                 clearable
               ></el-input>
