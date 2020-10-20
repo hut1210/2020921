@@ -155,6 +155,7 @@ export default {
     },
     //查询
     onSubmit(){
+        this.pageIndex = 1;
         this.getListSearch();
     },
     //新增

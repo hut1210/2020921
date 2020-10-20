@@ -137,6 +137,7 @@
     <!-- 分页 -->
     <el-pagination
       @current-change="handleCurrentChange"
+      :page-size="pageSize"
       prev-text="上一页"
       next-text="下一页"
       layout="prev, pager, next, jumper"
@@ -228,6 +229,7 @@ export default {
     },
   //查询
   onSubmit() {
+    this.pageIndex = 1;
     this.getList();
     },
     //获取列表

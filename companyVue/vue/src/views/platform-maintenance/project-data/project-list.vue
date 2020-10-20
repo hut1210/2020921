@@ -70,7 +70,7 @@
             right: -8px;
         ">
             <el-button class="btn-query" @click="onSubmit">查询</el-button> 
-            <el-button class="btn-query" @click="onSubmit">导出</el-button> 
+            <el-button class="btn-query" @click="exportSubmit">导出</el-button> 
           </el-form-item>
          </div>
         </el-form>
@@ -111,18 +111,21 @@
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="时间" width="180"></el-table-column>
+       <!-- 分页 -->
+   
       </el-table>
-    </div>
-
-    <!-- 分页 -->
-    <el-pagination
+      <el-pagination
       @current-change="handleCurrentChange"
+      :page-size="pageSize"
       prev-text="上一页"
       next-text="下一页"
-      layout="prev, pager, next, jumper"
+      layout="prev, pager, next, jumper, slot"
       :total="total"
     >
     </el-pagination>
+    </div>
+
+   
   </div>
 </template>
 
@@ -202,6 +205,7 @@ getdate(){
     },
     //查询
     onSubmit() {
+      this.pageIndex = 1;
       this.getList();
     },
     //新增
@@ -285,6 +289,50 @@ getdate(){
         }
       );
     },
+  
+    // 导出
+    exportSubmit(){
+     // 列标题，逗号隔开，每一个逗号就是隔开一个单元格
+     let str = `商户ID,金额,支付方式,订单费率,国家码,币种代码,商户订单ID,商户结算金额,商户用户ID,商户用户名,商户用户邮箱,商户用户手机号,产品名称,产品描述,时间\n`;
+     let jsonData = []
+     for(let i = 0 ; i < this.tableData.length ; i++ ){
+        let obj={
+                merchantId:this.tableData[i].merchantId,
+                amount:this.tableData[i].amount,
+                paytypeName:this.tableData[i].paytypeName,
+                paytypeRate:this.tableData[i].paytypeRate,
+                countryCode:this.tableData[i].countryCode,
+                currency:this.tableData[i].currency,
+                merchantOrderId:this.tableData[i].merchantOrderId,
+                merchantSettlementAmount:this.tableData[i].merchantSettlementAmount,
+                merchantUserId:this.tableData[i].merchantUserId,
+                merchantUserName:this.tableData[i].merchantUserName,
+                merchantUserEmail:this.tableData[i].merchantUserEmail,
+                merchantUserPhone:this.tableData[i].merchantUserPhone,
+                productName:this.tableData[i].productName,
+                productDescription:this.tableData[i].productDescription,
+                createTime:this.tableData[i].createTime
+                  
+            }
+            jsonData.push(obj)
+        }
+   
+     // 增加\t为了不让表格显示科学计数法或者其他格式
+        for(let j = 0 ; j < jsonData.length ; j++ ){
+            for(const key in jsonData[j]){
+                str+=`${ jsonData[j][key] + '\t'},`;     
+            }
+            str+='\n';
+        }
+        // encodeURIComponent解决中文乱码
+        const uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(str);
+        // 通过创建a标签实现
+        const link = document.createElement("a");
+        link.href = uri;
+        // 对下载的文件命名
+        link.download =  "订单信息.csv";
+        link.click();
+      }
   },
   mounted() {
     this.getList();

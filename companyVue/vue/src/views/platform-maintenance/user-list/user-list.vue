@@ -203,6 +203,7 @@ export default {
     },
     //查询
     onSubmit() {
+      this.pageIndex = 1;
       this.getList();
     },
     //新增
