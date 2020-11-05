@@ -93,9 +93,9 @@
             <el-button size="medium" round @click="btModifyWindow(1)"
               >充值</el-button
             >
-            <!-- <el-button size="medium" round @click="btModifyWindow(2)"
+             <el-button size="medium" round @click="btModifyWindow(2)"
               >提现</el-button
-            > -->
+            > 
             <el-button size="medium" round @click="btModifyWindow(3)"
               >代付</el-button
             >

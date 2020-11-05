@@ -13,8 +13,10 @@ module.exports = {
     proxyTable: {
       '/api': {
         // 代理接口的域名
-        target: 'http://test.gettin.in', // dev
-        //target: 'http://pg.grepayment.com', // dev
+        //target: 'http://test.gettin.in', // dev
+        target: 'http://api.teststwo.com', // dev//客户测试
+        //target: 'http://api.teststwo.com/', // dev//内部测试
+       
         secure: false,
         changeOrigin: true,
         pathRewrite: {

@@ -10,6 +10,9 @@ var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://pg.grepaymen
 //var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://test.gettin.in'
 //var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://pg.helonovel.in'
 
+//var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://api.testsone.com'
+//var root = process.env.NODE_ENV == 'development' ? '/api' : 'http://api.teststwo.com'
+
 // 自定义判断元素类型JS
 function toType (obj) {
   return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()

@@ -15,7 +15,7 @@
         <p class="attestation-title">商户配置参数:</p>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
           <div class="search-input" style="position:relative;">
-            <el-form-item label="商户号：" prop="">
+            <el-form-item label="商户号(merchantId)：" prop="">
               <el-input v-model="ruleForm.merchanDetail.merchantId"  readonly clearable></el-input>
             </el-form-item>
             <!-- <el-form-item label="应用名称：" prop="realname">
@@ -24,7 +24,7 @@
             <el-form-item label="APP_ID：" prop="app_id">
               <el-input v-model="ruleForm.merchantApp.app_id" placeholder="APP_ID" clearable readonly></el-input>
             </el-form-item>
-            <el-form-item label="APP_Secret：" prop="realname">
+            <el-form-item label="APP_Key：" prop="realname">
               <el-input v-model="ruleForm.merchantApp.app_key" placeholder="APP_Secret" clearable readonly></el-input>
             </el-form-item>
             <el-form-item label="回调地址：" prop="callback_urls">

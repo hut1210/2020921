@@ -122,7 +122,7 @@ export default {
     login() {
       let self = this;
       let href = "/gpauth/partner/merchant/users/login";
-      let ext = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+      let ext = /^(.+)@(.+)$/;//只校验@和.
       let pwdRegex = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]){8,30}/;
       debugger
       if (self.formLogin.email === "") {
